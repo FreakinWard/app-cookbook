@@ -1,0 +1,24 @@
+{
+  "name": "app-kitchen",
+  "version": "1.0.0",
+  "description": "app-kitchen prepares repeatable apps ready for development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FreakinWard/app-kitchen.git"
+  },
+  "author": "freakinward",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FreakinWard/app-kitchen/issues"
+  },
+  "homepage": "https://github.com/FreakinWard/app-kitchen#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "commander": "^8.1.0",
+    "inquirer": "^8.1.2"
+  }
+}
