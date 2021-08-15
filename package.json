@@ -1,7 +1,7 @@
 {
-  "name": "app-kitchen",
+  "name": "app-cookbook",
   "version": "1.0.0",
-  "description": "app-kitchen prepares repeatable apps ready for development",
+  "description": "app-cookbook prepares repeatable apps from recipes ready for development",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

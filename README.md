@@ -1,2 +1,2 @@
-# app-kitchen
+# app-cookbook
 ___
