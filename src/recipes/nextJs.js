@@ -108,12 +108,27 @@ const installPackages = async (requestedIngredientList)=> {
     });
 }
 
+const commitGit = () => {
+    const spinner = ora("Committing files to Git...");
+
+    return new Promise(resolve => {
+        shell.exec(
+            'git add . && git commit --no-verify -m "initial commit"',
+            () => {
+                spinner.succeed();
+                resolve();
+            }
+        );
+    });
+};
+
 const prepare = async (appName)=> {
     const requestedIngredientList = await buildIngredients()
 
     await createApp(appName)
     await addPackages(requestedIngredientList)
     await installPackages(requestedIngredientList);
+    await commitGit();
 
     return true;
 }
