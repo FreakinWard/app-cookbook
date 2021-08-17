@@ -39,11 +39,28 @@ const createApp = async appName => {
     });
 }
 
-const installPackages = async ()=> {
-    const spinner = ora("Installing dependencies...").start();
+const installPackages = async (requestedIngredientList)=> {
+    let dependencies = [];
+    let devDependencies = [];
 
-    return new Promise(resolve => {
-        shell.exec(`npm install`, () => {
+    requestedIngredientList.forEach(ingredient => {
+        dependencies = [...dependencies, ...ingredient.dependencies];
+        devDependencies = [...devDependencies, ...ingredient.devDependencies];
+    });
+
+    await new Promise(resolve => {
+        const spinner = ora("Installing dependencies...").start();
+
+        shell.exec(`npm install --save ${dependencies.join(" ")}`, () => {
+            spinner.succeed();
+            resolve();
+        });
+    });
+
+    await new Promise(resolve => {
+        const spinner = ora("Installing devDependencies...").start();
+
+        shell.exec(`npm install --save ${devDependencies.join(" ")}`, () => {
             spinner.succeed();
             resolve();
         });
@@ -96,7 +113,7 @@ const prepare = async (appName)=> {
 
     await createApp(appName)
     await addPackages(requestedIngredientList)
-    // await installPackages();
+    await installPackages(requestedIngredientList);
 
     return true;
 }
