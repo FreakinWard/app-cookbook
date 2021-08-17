@@ -17,6 +17,15 @@ const ingredientQuestions = availableIngredients.map(i=> {
     }
 });
 
+const buildIngredients = async ()=> {
+    const ingredientAnswers = await inquirer.prompt(ingredientQuestions);
+
+    const ingredientNames = Object.entries(ingredientAnswers).map(([key, value]) => value ? key : null);
+    const requestedIngredientList = availableIngredients.filter(x=> ingredientNames.includes(x.name));
+
+    return requestedIngredientList
+}
+
 const createApp = async appName => {
     const action = 'create-next-app'
     const spinner = ora(`Running ${action}...`).start();
@@ -36,34 +45,6 @@ const createApp = async appName => {
                 resolve();
             }
         );
-    });
-}
-
-const installPackages = async (requestedIngredientList)=> {
-    let dependencies = [];
-    let devDependencies = [];
-
-    requestedIngredientList.forEach(ingredient => {
-        dependencies = [...dependencies, ...ingredient.dependencies];
-        devDependencies = [...devDependencies, ...ingredient.devDependencies];
-    });
-
-    await new Promise(resolve => {
-        const spinner = ora("Installing dependencies...").start();
-
-        shell.exec(`npm install --save ${dependencies.join(" ")}`, () => {
-            spinner.succeed();
-            resolve();
-        });
-    });
-
-    await new Promise(resolve => {
-        const spinner = ora("Installing devDependencies...").start();
-
-        shell.exec(`npm install --save ${devDependencies.join(" ")}`, () => {
-            spinner.succeed();
-            resolve();
-        });
     });
 }
 
@@ -99,13 +80,32 @@ const addPackages = ingredientList => {
     });
 };
 
-const buildIngredients = async ()=> {
-    const ingredientAnswers = await inquirer.prompt(ingredientQuestions);
+const installPackages = async (requestedIngredientList)=> {
+    let dependencies = [];
+    let devDependencies = [];
 
-    const ingredientNames = Object.entries(ingredientAnswers).map(([key, value]) => value ? key : null);
-    const requestedIngredientList = availableIngredients.filter(x=> ingredientNames.includes(x.name));
+    requestedIngredientList.forEach(ingredient => {
+        dependencies = [...dependencies, ...ingredient.dependencies];
+        devDependencies = [...devDependencies, ...ingredient.devDependencies];
+    });
 
-    return requestedIngredientList
+    await new Promise(resolve => {
+        const spinner = ora("Installing dependencies...").start();
+
+        shell.exec(`npm install --save ${dependencies.join(" ")}`, () => {
+            spinner.succeed();
+            resolve();
+        });
+    });
+
+    await new Promise(resolve => {
+        const spinner = ora("Installing devDependencies...").start();
+
+        shell.exec(`npm install --save ${devDependencies.join(" ")}`, () => {
+            spinner.succeed();
+            resolve();
+        });
+    });
 }
 
 const prepare = async (appName)=> {
