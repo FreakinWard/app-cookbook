@@ -19,7 +19,9 @@
   "dependencies": {
     "colors": "^1.4.0",
     "commander": "^8.1.0",
+    "fs-extra": "^10.0.0",
     "inquirer": "^8.1.2",
+    "lodash.set": "^4.3.2",
     "ora": "^5.4.1",
     "shelljs": "^0.8.4"
   }
