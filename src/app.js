@@ -24,7 +24,6 @@ exports.start = ()=> {
     .prompt(questions)
     .then(answers=> {
         const recipe = recipes.find(config => config.name===answers.recipe)
-        recipe.prepare()
-        // TODO: handle an error
+        recipe.prepare(answers.appName)
     });
 }

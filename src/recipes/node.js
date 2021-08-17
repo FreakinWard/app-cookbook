@@ -5,8 +5,9 @@ const questions = [
 ];
 
 
-const prepare = ()=> {
-    inquirer.prompt(questions);
+const prepare = async ()=> {
+   const answers = await inquirer.prompt(questions);
+    console.log({answers})
 }
 
 module.exports ={
