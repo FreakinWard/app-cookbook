@@ -1,10 +1,10 @@
-const inquirer = require('inquirer')
-const ora = require('ora');
-const shell = require("shelljs");
-const fse = require("fs-extra");
-const staticCodeAnalysis = require('../ingredients/staticCodeAnalysis')
-const unitTests = require('../ingredients/unitTests')
-const set = require("lodash.set");
+import inquirer from 'inquirer';
+import ora from 'ora';
+import shell from 'shelljs';
+import fse from 'fs-extra';
+import staticCodeAnalysis from '../ingredients/staticCodeAnalysis';
+import unitTests from '../ingredients/unitTests';
+import set from 'lodash.set';
 
 const availableIngredients = [staticCodeAnalysis, unitTests]
 
@@ -21,7 +21,7 @@ const buildIngredients = async ()=> {
     const ingredientAnswers = await inquirer.prompt(ingredientQuestions);
 
     const ingredientNames = Object.entries(ingredientAnswers).map(([key, value]) => value ? key : null);
-    const requestedIngredientList = availableIngredients.filter(x=> ingredientNames.includes(x.name));
+    return availableIngredients.filter(x=> ingredientNames.includes(x.name));
 
     return requestedIngredientList
 }
@@ -133,7 +133,7 @@ const prepare = async (appName)=> {
     return true;
 }
 
-module.exports ={
+export default {
     name: 'nextjs',
     prepare
 }

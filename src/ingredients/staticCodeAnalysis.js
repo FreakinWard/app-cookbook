@@ -1,4 +1,4 @@
-module.exports  = {
+export default {
     name: "staticCodeAnalysis",
     question: "Would you like static code analysis?",
     dependencies: [],

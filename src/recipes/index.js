@@ -1,4 +1,4 @@
-const nextJs = require('./nextJs')
-const node = require('./node');
+import node from './node';
+import nextJs from './nextJs'
 
-module.exports = [ nextJs, node ]
+export default [ node, nextJs]

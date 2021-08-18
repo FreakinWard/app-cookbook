@@ -1,4 +1,4 @@
-module.exports  = {
+export default {
     name: "unitTests",
     question: "Would you like unit tests?",
     dependencies: [],
