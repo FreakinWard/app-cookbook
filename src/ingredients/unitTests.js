@@ -1,3 +1,6 @@
+import jestSetup from '../ingredients/templates/jestSetup'
+import jestConfig from '../ingredients/templates/jestConfig'
+
 export default {
     name: "unitTests",
     question: "Would you like unit tests?",
@@ -5,6 +8,8 @@ export default {
     devDependencies: [
         "@testing-library/jest-dom",
         "jest",
+        "jest-junit",
+        "jest-html-reporters",
         "eslint-plugin-jest"
     ],
     packageEntries: [
@@ -17,5 +22,14 @@ export default {
             value: "jest --coverage"
         },
     ],
-    templates: []
+    templates: [
+        {
+            targetPath: 'jest.config.js',
+            file: jestConfig
+        },
+        {
+            targetPath: 'jest.setup.js',
+            file: jestSetup
+        }
+    ]
 };

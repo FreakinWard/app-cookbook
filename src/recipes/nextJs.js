@@ -108,6 +108,28 @@ const installPackages = async (requestedIngredientList)=> {
     });
 }
 
+const addTemplates =  async ingredientList => {
+    const spinner = ora("Applying templates...");
+
+    const templateList = ingredientList.reduce(
+        (acc, val) => [...acc, ...val.templates],
+        []
+    );
+
+    await new Promise(resolve => {
+        templateList.forEach(template => {
+            fse.outputFile(template.targetPath, template.file, err => {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        });
+
+        spinner.succeed();
+        resolve();
+    });
+};
+
 const commitGit = () => {
     const spinner = ora("Committing files to Git...");
 
@@ -128,7 +150,8 @@ const prepare = async (appName)=> {
     await createApp(appName)
     await addPackages(requestedIngredientList)
     await installPackages(requestedIngredientList);
-    await commitGit();
+    await addTemplates(requestedIngredientList);
+    // await commitGit(); // TODO: skip while testing
 
     const ingredientNames = requestedIngredientList.map(x=> x.name).join(", ");
 
