@@ -10,7 +10,7 @@ export default {
     packageEntries: [
         {
             key: "pre-commit",
-            value: ["format:check"]
+            value: ["format:fix", "lint:fix"]
         },
         {
             key: "scripts.lint",
