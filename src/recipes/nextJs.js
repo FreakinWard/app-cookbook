@@ -5,6 +5,7 @@ import fse from 'fs-extra';
 import staticCodeAnalysis from '../ingredients/staticCodeAnalysis';
 import unitTests from '../ingredients/unitTests';
 import set from 'lodash.set';
+import "colors"
 
 const availableIngredients = [staticCodeAnalysis, unitTests]
 
@@ -128,6 +129,11 @@ const prepare = async (appName)=> {
     await addPackages(requestedIngredientList)
     await installPackages(requestedIngredientList);
     await commitGit();
+
+    const ingredientNames = requestedIngredientList.map(x=> x.name).join(", ");
+
+    const prompt = `Created new app with settings: ${ingredientNames}. cd into ${appName} to get started.`
+    console.log(prompt.green);
 
     return true;
 }
