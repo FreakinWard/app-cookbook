@@ -1,4 +1,4 @@
-import node from './node';
 import nextJs from './nextJs'
+import node from './node';
 
-export default [ node, nextJs]
+export default [nextJs, node]

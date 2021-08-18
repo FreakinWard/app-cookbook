@@ -21,16 +21,15 @@ const buildIngredients = async ()=> {
     const ingredientAnswers = await inquirer.prompt(ingredientQuestions);
 
     const ingredientNames = Object.entries(ingredientAnswers).map(([key, value]) => value ? key : null);
-    return availableIngredients.filter(x=> ingredientNames.includes(x.name));
 
-    return requestedIngredientList
+    return availableIngredients.filter(x=> ingredientNames.includes(x.name));
 }
 
 const createApp = async appName => {
     const action = 'create-next-app'
     const spinner = ora(`Running ${action}...`).start();
 
-    return new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
         shell.exec(
             `npx ${action} ${appName} --use-npm`,
             () => {
@@ -53,7 +52,7 @@ const addPackages = ingredientList => {
 
     const spinner = ora(`Adding the ${fileName} packages...`);
 
-    let packageEntries = ingredientList.reduce(
+    const packageEntries = ingredientList.reduce(
         (acc, val) => [...acc, ...val.packageEntries],
         []
     );
