@@ -101,7 +101,7 @@ const installPackages = async (requestedIngredientList)=> {
     await new Promise(resolve => {
         const spinner = ora("Installing devDependencies...").start();
 
-        shell.exec(`npm install --save ${devDependencies.join(" ")}`, () => {
+        shell.exec(`npm install --save-dev ${devDependencies.join(" ")}`, () => {
             spinner.succeed();
             resolve();
         });
