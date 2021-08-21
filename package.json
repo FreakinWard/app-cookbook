@@ -2,9 +2,12 @@
   "name": "app-cookbook",
   "version": "1.0.0",
   "description": "app-cookbook prepares repeatable apps from recipes ready for development",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/babel-node src/index.js",
+    "build": "webpack --config ./webpack.config.js --mode=production",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,14 @@
     "colors": "^1.4.0",
     "commander": "^8.1.0",
     "inquirer": "^8.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
   }
 }
