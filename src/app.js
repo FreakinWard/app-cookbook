@@ -1,8 +1,7 @@
-const inquirer = require('inquirer')
-const recipes = require('./recipes')
-require('colors');
+import inquirer from 'inquirer';
+import recipes from './recipes'
 
-exports.start = ()=> {
+export default function app() {
     const choices = recipes.map(config => config.name);
 
     const questions = [
@@ -24,7 +23,6 @@ exports.start = ()=> {
     .prompt(questions)
     .then(answers=> {
         const recipe = recipes.find(config => config.name===answers.recipe)
-        recipe.prepare()
-        // TODO: handle an error
+        recipe.prepare(answers.appName)
     });
 }

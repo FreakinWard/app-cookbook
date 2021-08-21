@@ -1,15 +1,16 @@
-const inquirer = require('inquirer')
+import inquirer from 'inquirer'
 
 const questions = [
     { type: 'confirm', name: 'option1', message: 'Want to node?', default: false },
 ];
 
 
-const prepare = ()=> {
-    inquirer.prompt(questions);
+const prepare = async ()=> {
+   const answers = await inquirer.prompt(questions);
+    console.log({answers})
 }
 
-module.exports ={
+export default {
     name: 'node',
     prepare
 }
